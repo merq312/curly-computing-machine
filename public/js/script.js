@@ -21,7 +21,7 @@ const login = async (email, password) => {
   try {
     const res = await axios({
       method: 'POST',
-      url: 'http://localhost:3000/api/v1/users/login',
+      url: '/api/v1/users/login',
       withCredentials: true,
       data: {
         email,
@@ -43,11 +43,10 @@ const login = async (email, password) => {
 }
 
 const logout = async () => {
-  console.log('LOGOUT')
   try {
     const res = await axios({
       method: 'GET',
-      url: 'http://localhost:3000/api/v1/users/logout',
+      url: '/api/v1/users/logout',
       withCredentials: true,
     })
 
@@ -64,8 +63,8 @@ const updateSettings = async (data, type) => {
   try {
     const url =
       type === 'password'
-        ? 'http://localhost:3000/api/v1/users/updateMyPassword'
-        : 'http://localhost:3000/api/v1/users/updateMe'
+        ? '/api/v1/users/updateMyPassword'
+        : '/api/v1/users/updateMe'
     const res = await axios({
       method: 'PATCH',
       url,
@@ -89,9 +88,7 @@ const stripe = Stripe(
 export const bookTour = async (tourId) => {
   try {
     // Get checkout session from API
-    const session = await axios(
-      `http://localhost:3000/api/v1/bookings/checkout-session/${tourId}`
-    )
+    const session = await axios(`/api/v1/bookings/checkout-session/${tourId}`)
     // console.log(session)
 
     // Create checkout form and charge credit card

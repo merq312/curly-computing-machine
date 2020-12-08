@@ -34,7 +34,16 @@ app.use(express.static(path.join(__dirname, 'public')))
 // Note- best to use Helmet early in the middleware stack
 // app.use(helmet())
 
-app.use(cors({ credentials: true, origin: 'http://localhost:3000' }))
+if (process.env.NODE_ENV === 'development') {
+  app.use(cors({ credentials: true, origin: 'http://localhost:3000' }))
+} else {
+  app.use(
+    cors({
+      credentials: true,
+      origin: 'https://git.heroku.com/limitless-meadow-80688.git',
+    })
+  )
+}
 
 // Development logging
 // console.log(process.env.NODE_ENV);
