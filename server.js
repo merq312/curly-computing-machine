@@ -47,3 +47,12 @@ process.on('unhandledRejection', (err) => {
     process.exit(1)
   })
 })
+
+// Gracefully handle SIGTERM signals (ie- handle all pending requests first)
+process.on('SIGTERM', () => {
+  console.log('SIGTERM recieved. Shutting down...')
+
+  server.close(() => {
+    console.log('Process terminated')
+  })
+})

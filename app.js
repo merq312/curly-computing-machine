@@ -20,6 +20,9 @@ const viewRouter = require('./routes/viewRoutes')
 
 const app = express()
 
+// Set express to trust proxies. Necessary for https support on Heroku
+app.enable('trust proxy')
+
 app.set('view engine', 'pug')
 app.set('views', path.join(__dirname, 'views'))
 
