@@ -38,14 +38,13 @@ app.use(express.static(path.join(__dirname, 'public')))
 // app.use(helmet())
 
 if (process.env.NODE_ENV === 'development') {
-  app.use(cors({ credentials: true, origin: 'http://localhost:3000' }))
+  const origin = 'http://localhost:3000'
+  app.use(cors({ credentials: true, origin }))
+  app.options(origin, cors({ credentials: true, origin }))
 } else {
-  app.use(
-    cors({
-      credentials: true,
-      origin: 'https://git.heroku.com/limitless-meadow-80688.git',
-    })
-  )
+  const origin = 'https://limitless-meadow-80688.herokuapp.com/'
+  app.use(cors({ credentials: true, origin }))
+  app.options(origin, cors({ credentials: true, origin }))
 }
 
 // Development logging
